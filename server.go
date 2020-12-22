@@ -18,20 +18,40 @@ func setupLogoutput() {
 func main() {
 	setupLogoutput()
 	server := gin.New()
-	server.Use(gin.Recovery(), middleware.Logger(), middleware.BasicAuth(), gindump.Dump())
+
+	server.Static("/css", "./templates/css")
+	server.LoadHTMLGlob("templates/*html")
+
+	server.Use(gin.Recovery(), middleware.Logger(), gindump.Dump())
 	videoController := controller.NewVideoController()
 
-	server.GET("/videos", func(c *gin.Context) {
-		c.JSON(200, videoController.FindAll())
-	})
-	server.POST("/videos", func(c *gin.Context) {
-		v, err := videoController.Add(c)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		} else {
-			c.JSON(200, v)
-		}
-	})
+	apiRoutes := server.Group("/api", middleware.BasicAuth())
+	{
 
-	server.Run(":3000")
+		apiRoutes.GET("/videos", func(c *gin.Context) {
+			c.JSON(200, videoController.FindAll())
+		})
+		apiRoutes.POST("/videos", func(c *gin.Context) {
+			v, err := videoController.Add(c)
+			if err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			} else {
+				c.JSON(200, v)
+			}
+		})
+	}
+
+	// The /view endpoints are public ( no authorization is required)
+	viewRoutes := server.Group("/view")
+	{
+		viewRoutes.GET("/videos", videoController.ShowAll)
+	}
+
+	port := os.Getenv("PORT")
+
+	//[AWS] Elastic Beanstalk forwards request to port 5000
+	if port == "" {
+		port = "3000"
+	}
+	server.Run(":" + port)
 }

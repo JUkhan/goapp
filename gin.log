@@ -2,18 +2,15 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /videos                   --> main.main.func1 (5 handlers)
-[GIN-debug] POST   /videos                   --> main.main.func2 (5 handlers)
+[GIN-debug] GET    /css/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (1 handlers)
+[GIN-debug] HEAD   /css/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (1 handlers)
+[GIN-debug] Loaded HTML Templates (4): 
+	- index.html
+	- 
+	- footer.html
+	- header.html
+
+[GIN-debug] GET    /api/videos               --> main.main.func1 (5 handlers)
+[GIN-debug] POST   /api/videos               --> main.main.func2 (5 handlers)
+[GIN-debug] GET    /view/videos              --> github.com/JUkhan/goapp/controller.VideoController.ShowAll-fm (4 handlers)
 [GIN-debug] Listening and serving HTTP on :3000
-[GIN-debug] redirecting request 307: /videos --> /videos
-[MYAPP] 2020/12/22 - 12:37:18 |[90;43m 400 [0m|    9.929714ms |             ::1 |[97;46m POST    [0m "/videos"
-
-[GIN-debug] redirecting request 307: /videos --> /videos
-[MYAPP] 2020/12/22 - 12:37:29 |[90;43m 400 [0m|     1.82672ms |             ::1 |[97;46m POST    [0m "/videos"
-
-[GIN-debug] redirecting request 307: /videos --> /videos
-[MYAPP] 2020/12/22 - 12:37:39 |[90;43m 400 [0m|    2.603845ms |             ::1 |[97;46m POST    [0m "/videos"
-
-[GIN-debug] redirecting request 307: /videos --> /videos
-[MYAPP] 2020/12/22 - 12:37:45 |[97;42m 200 [0m|    5.154953ms |             ::1 |[97;46m POST    [0m "/videos"
-
