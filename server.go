@@ -7,6 +7,7 @@ import (
 
 	"github.com/JUkhan/goapp/controller"
 	"github.com/JUkhan/goapp/middleware"
+	"github.com/JUkhan/goapp/service"
 	"github.com/gin-gonic/gin"
 	gindump "github.com/tpkeeper/gin-dump"
 )
@@ -23,9 +24,22 @@ func main() {
 	server.LoadHTMLGlob("templates/*html")
 
 	server.Use(gin.Recovery(), middleware.Logger(), gindump.Dump())
-	videoController := controller.NewVideoController()
-
-	apiRoutes := server.Group("/api", middleware.BasicAuth())
+	videoController := controller.NewVideoController(service.NewVideoService())
+	loginController := controller.NewLoginController(
+		service.NewLoginService(),
+		service.NewJWTService(),
+	)
+	server.POST("/login", func(c *gin.Context) {
+		token := loginController.Login(c)
+		if token != "" {
+			c.JSON(http.StatusOK, gin.H{
+				"token": token,
+			})
+		} else {
+			c.JSON(http.StatusUnauthorized, nil)
+		}
+	})
+	apiRoutes := server.Group("/api", middleware.AuthorizeJWT)
 	{
 
 		apiRoutes.GET("/videos", func(c *gin.Context) {

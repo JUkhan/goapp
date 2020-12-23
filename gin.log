@@ -5,12 +5,23 @@
 [GIN-debug] GET    /css/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (1 handlers)
 [GIN-debug] HEAD   /css/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (1 handlers)
 [GIN-debug] Loaded HTML Templates (4): 
-	- index.html
 	- 
 	- footer.html
 	- header.html
+	- index.html
 
-[GIN-debug] GET    /api/videos               --> main.main.func1 (5 handlers)
-[GIN-debug] POST   /api/videos               --> main.main.func2 (5 handlers)
+[GIN-debug] POST   /login                    --> main.main.func1 (4 handlers)
+[GIN-debug] GET    /api/videos               --> main.main.func2 (5 handlers)
+[GIN-debug] POST   /api/videos               --> main.main.func3 (5 handlers)
 [GIN-debug] GET    /view/videos              --> github.com/JUkhan/goapp/controller.VideoController.ShowAll-fm (4 handlers)
 [GIN-debug] Listening and serving HTTP on :3000
+[MYAPP] 2020/12/24 - 01:43:20 |[97;42m 200 [0m|    1.684397ms |             ::1 |[97;46m POST    [0m "/api/videos"
+
+[MYAPP] 2020/12/24 - 01:43:49 |[90;43m 401 [0m|    5.544124ms |             ::1 |[97;44m GET     [0m "/api/videos"
+
+[MYAPP] 2020/12/24 - 01:44:00 |[97;42m 200 [0m|    1.892428ms |             ::1 |[97;44m GET     [0m "/api/videos"
+
+[MYAPP] 2020/12/24 - 01:44:29 |[97;42m 200 [0m|     2.03226ms |             ::1 |[97;44m GET     [0m "/view/videos"
+
+[MYAPP] 2020/12/24 - 01:44:33 |[97;42m 200 [0m|     817.356µs |             ::1 |[97;44m GET     [0m "/view/videos"
+

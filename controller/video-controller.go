@@ -22,11 +22,11 @@ type videoController struct {
 
 var validate *validator.Validate
 
-func NewVideoController() VideoController {
+func NewVideoController(service service.VideoService) VideoController {
 	validate = validator.New()
 	validate.RegisterValidation("is-cool", validators.ValidateCoolTitle)
 	return &videoController{
-		service: service.NewVideoService(),
+		service: service,
 	}
 }
 
