@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/JUkhan/goapp/entity"
 	"github.com/JUkhan/goapp/service"
@@ -12,6 +13,8 @@ import (
 
 type VideoController interface {
 	Add(*gin.Context) (entity.Video, error)
+	Update(*gin.Context) (entity.Video, error)
+	Delete(*gin.Context) (entity.Video, error)
 	FindAll() []entity.Video
 	ShowAll(*gin.Context)
 }
@@ -41,7 +44,37 @@ func (c *videoController) Add(ctx *gin.Context) (entity.Video, error) {
 	if err != nil {
 		return video, err
 	}
-	c.service.Add(video)
+	c.service.Add(&video)
+	return video, nil
+}
+func (c *videoController) Update(ctx *gin.Context) (entity.Video, error) {
+	var video entity.Video
+	err := ctx.ShouldBindJSON(&video)
+	if err != nil {
+		return video, err
+	}
+	//custom validation
+	err = validate.Struct(video)
+	if err != nil {
+		return video, err
+	}
+	id, err := strconv.ParseUint(ctx.Param("id"), 0, 0)
+	if err != nil {
+		return video, err
+	}
+	video.ID = uint(id)
+	c.service.Update(&video)
+	return video, nil
+}
+func (c *videoController) Delete(ctx *gin.Context) (entity.Video, error) {
+	var video entity.Video
+	ctx.BindJSON(&video)
+	id, err := strconv.ParseUint(ctx.Param("id"), 0, 0)
+	if err != nil {
+		return video, err
+	}
+	video.ID = uint(id)
+	c.service.Delete(&video)
 	return video, nil
 }
 

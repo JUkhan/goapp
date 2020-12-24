@@ -1,27 +1,38 @@
 package service
 
-import "github.com/JUkhan/goapp/entity"
+import (
+	"github.com/JUkhan/goapp/entity"
+	"github.com/JUkhan/goapp/repository"
+)
 
-type VideoService interface {
-	Add(entity.Video) entity.Video
-	FindAll() []entity.Video
-}
+type (
+	VideoService interface {
+		Add(*entity.Video)
+		FindAll() []entity.Video
+		Update(*entity.Video)
+		Delete(*entity.Video)
+	}
+	videoService struct {
+		videoRepo repository.VideoRepository
+	}
+)
 
-func NewVideoService() VideoService {
-	return &videoStorage{
-		[]entity.Video{},
+func NewVideoService(repo repository.VideoRepository) VideoService {
+	return &videoService{
+		videoRepo: repo,
 	}
 }
 
-type videoStorage struct {
-	videos []entity.Video
+func (s *videoService) Add(item *entity.Video) {
+	s.videoRepo.Save(item)
 }
 
-func (s *videoStorage) Add(item entity.Video) entity.Video {
-	s.videos = append(s.videos, item)
-	return item
+func (s *videoService) FindAll() []entity.Video {
+	return s.videoRepo.FindAll()
 }
-
-func (s *videoStorage) FindAll() []entity.Video {
-	return s.videos
+func (s *videoService) Update(item *entity.Video) {
+	s.videoRepo.Update(item)
+}
+func (s *videoService) Delete(item *entity.Video) {
+	s.videoRepo.Delete(item)
 }
