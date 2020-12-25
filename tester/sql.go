@@ -13,7 +13,7 @@ type Product struct {
 	Price uint
 }
 
-func main() {
+func mainx() {
 	db, err := gorm.Open(sqlite.Open("test2.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")

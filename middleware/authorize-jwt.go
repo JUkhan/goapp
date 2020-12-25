@@ -12,7 +12,6 @@ import (
 func AuthorizeJWT(c *gin.Context) {
 	const BearerSchema = "Bearer "
 	authorizeHead := c.GetHeader("Authorization")
-	log.Println(authorizeHead)
 	tokenString := authorizeHead[len(BearerSchema):]
 	token, err := service.NewJWTService().ValidateToken(tokenString)
 	if token.Valid {
