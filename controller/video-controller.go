@@ -62,7 +62,7 @@ func (c *videoController) Update(ctx *gin.Context) (entity.Video, error) {
 	if err != nil {
 		return video, err
 	}
-	video.ID = uint(id)
+	video.ID = id
 	c.service.Update(&video)
 	return video, nil
 }
@@ -73,7 +73,7 @@ func (c *videoController) Delete(ctx *gin.Context) (entity.Video, error) {
 	if err != nil {
 		return video, err
 	}
-	video.ID = uint(id)
+	video.ID = id
 	c.service.Delete(&video)
 	return video, nil
 }

@@ -1,21 +1,24 @@
 package service
 
+import "log"
+
 type (
-	LoginService interface {
+	AuthService interface {
 		Login(username, password string) bool
 	}
-	loginService struct {
+	authService struct {
 		authorizedUserName, authorizedPassword string
 	}
 )
 
-func NewLoginService() LoginService {
-	return &loginService{
+func NewLoginService() AuthService {
+	return &authService{
 		authorizedUserName: "jukhan",
 		authorizedPassword: "test",
 	}
 }
-func (service *loginService) Login(username, password string) bool {
+func (service *authService) Login(username, password string) bool {
+	log.Println("DATA:;;", username, password)
 	return service.authorizedUserName == username &&
 		service.authorizedPassword == password
 }
