@@ -13,10 +13,9 @@ func AuthorizeJWT(c *gin.Context) {
 	const BearerSchema = "Bearer "
 	authorizeHead := c.GetHeader("Authorization")
 	if authorizeHead == "" {
-		authorizeHead = BearerSchema + "unauthorized"
-
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
-	// log.Println("authorize:", authorizeHead)
 	tokenString := authorizeHead[len(BearerSchema):]
 	token, err := service.NewJWTService().ValidateToken(tokenString)
 
