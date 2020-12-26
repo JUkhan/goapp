@@ -16,7 +16,8 @@ func InitDB() {
 		panic("failed to connect database")
 	}
 	log.Println("database connected")
-	db.AutoMigrate(&entity.Video{}, &entity.Authore{})
+	db.AutoMigrate(&entity.Video{}, &entity.Author{})
 	log.Println("database migrated")
 	Connection = db
+
 }

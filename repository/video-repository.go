@@ -35,7 +35,7 @@ func (db *repository) Delete(video *entity.Video) {
 }
 func (db *repository) FindAll() []entity.Video {
 	var videos []entity.Video
-	db.connection.Preload("Authore").Find(&videos)
+	db.connection.Preload("Author").Find(&videos)
 	//db.connection.Find(&videos)
 	return videos
 }

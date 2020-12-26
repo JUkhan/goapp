@@ -9,24 +9,27 @@ definitions:
       message:
         type: string
     type: object
-  entity.Authore:
+  entity.Person:
     properties:
       age:
         type: integer
+      email:
+        type: string
+      firstname:
+        type: string
       id:
         type: integer
-      name:
+      lastname:
         type: string
     required:
-    - age
-    - name
+    - email
+    - firstname
+    - lastname
     type: object
   entity.Video:
     properties:
-      authore:
-        $ref: '#/definitions/entity.Authore'
-      authoreID:
-        type: integer
+      author:
+        $ref: '#/definitions/entity.Person'
       description:
         type: string
       id:
@@ -36,8 +39,7 @@ definitions:
       url:
         type: string
     required:
-    - description
-    - title
+    - url
     type: object
 info:
   contact: {}

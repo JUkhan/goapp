@@ -3,7 +3,7 @@
 ## Go Module Init
 
 ```bash
-go mod init gitlab.com/pragmaticreviews/golang-gin-poc
+go mod init module_name
 ```
 
 ## Gin-Gonic library: github.com/gin-gonic/gin
@@ -15,6 +15,8 @@ go run main.go
 ```
 
 # Swagger Documentation
+
+[Swagger](http://localhost:3000/swagger/index.html)
 
 ## Install Swagger Library
 

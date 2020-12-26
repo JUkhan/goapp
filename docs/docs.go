@@ -281,20 +281,27 @@ var doc = `{
                 }
             }
         },
-        "entity.Authore": {
+        "entity.Person": {
             "type": "object",
             "required": [
-                "age",
-                "name"
+                "email",
+                "firstname",
+                "lastname"
             ],
             "properties": {
                 "age": {
                     "type": "integer"
                 },
+                "email": {
+                    "type": "string"
+                },
+                "firstname": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
-                "name": {
+                "lastname": {
                     "type": "string"
                 }
             }
@@ -302,15 +309,11 @@ var doc = `{
         "entity.Video": {
             "type": "object",
             "required": [
-                "description",
-                "title"
+                "url"
             ],
             "properties": {
-                "authore": {
-                    "$ref": "#/definitions/entity.Authore"
-                },
-                "authoreID": {
-                    "type": "integer"
+                "author": {
+                    "$ref": "#/definitions/entity.Person"
                 },
                 "description": {
                     "type": "string"
